@@ -22,40 +22,58 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 /**
  * PanelControllerTest class will test all APIs in PanelController.java.
- * @author Crossover
  *
+ * @author Crossover
  */
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 public class PanelControllerTest {
-  
-  MockMvc mockMvc;
-  
-  @Mock
-  private PanelController panelController;
-  
-  @Autowired
-  private TestRestTemplate template;
 
-  @Before
-  public void setup() throws Exception {
-    mockMvc = MockMvcBuilders.standaloneSetup(panelController).build();
-  }
+    MockMvc mockMvc;
 
-  @Test
-  public void testPanelShouldBeRegistered() throws Exception {
-    HttpEntity<Object> panel = getHttpEntity(
-        "{\"serial\": \"232323\", \"longitude\": \"54.123232\"," 
-            + " \"latitude\": \"54.123232\",\"brand\":\"tesla\" }");
-    ResponseEntity<Panel> response = template.postForEntity(
-        "/api/register", panel, Panel.class);
-    Assert.assertEquals(202,response.getStatusCode().value());
-  }
+    @Mock
+    private PanelController panelController;
 
-  private HttpEntity<Object> getHttpEntity(Object body) {
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_JSON);
-    return new HttpEntity<Object>(body, headers);
-  }
+    @Autowired
+    private TestRestTemplate template;
+
+    @Before
+    public void setup() throws Exception {
+        mockMvc = MockMvcBuilders.standaloneSetup(panelController).build();
+    }
+
+    @Test
+    public void testPanelShouldBeRegistered() throws Exception {
+        HttpEntity<Object> panel = getHttpEntity(
+                "{\"serial\": \"232323\", \"longitude\": \"54.123232\","
+                        + " \"latitude\": \"54.123232\",\"brand\":\"tesla\" }");
+        ResponseEntity<Panel> response = template.postForEntity(
+                "/api/register", panel, Panel.class);
+        Assert.assertEquals(202, response.getStatusCode().value());
+    }
+
+    private HttpEntity<Object> getHttpEntity(Object body) {
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        return new HttpEntity<Object>(body, headers);
+    }
+
+    @Test
+    public void registerPanel() {
+
+    }
+
+    @Test
+    public void saveHourlyElectricity() {
+
+    }
+
+    @Test
+    public void hourlyElectricity() {
+    }
+
+    @Test
+    public void allDailyElectricityFromYesterday() {
+    }
 }
