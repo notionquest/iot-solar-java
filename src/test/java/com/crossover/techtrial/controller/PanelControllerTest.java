@@ -1,5 +1,6 @@
 package com.crossover.techtrial.controller;
 
+import com.crossover.techtrial.model.HourlyElectricity;
 import com.crossover.techtrial.model.Panel;
 import org.junit.Assert;
 import org.junit.Before;
@@ -66,11 +67,19 @@ public class PanelControllerTest {
 
     @Test
     public void saveHourlyElectricity() {
+        HttpEntity<Object> hourlyElectricity = getHttpEntity(getClass().getResource("hourlyElectricity.json"));
+
+        ResponseEntity<HourlyElectricity> response = template.postForEntity(
+                "/api/panels/232323/hourly", hourlyElectricity, HourlyElectricity.class);
+
+        Assert.assertEquals(200, response.getStatusCode().value());
 
     }
 
     @Test
     public void hourlyElectricity() {
+
+
     }
 
     @Test
