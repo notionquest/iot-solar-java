@@ -29,4 +29,8 @@ public class PanelServiceImpl implements PanelService {
   public Panel findBySerial(String serial) {
     return panelRepository.findBySerial(serial);
   }
+
+  public void setPanelRepository(PanelRepository panelRepository) {
+    this.panelRepository = panelRepository;
+  }
 }

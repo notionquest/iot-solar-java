@@ -17,6 +17,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class HourlyElectricityServiceImpl implements HourlyElectricityService {
+
   @Autowired
   HourlyElectricityRepository hourlyElectricityRepository;
   
@@ -26,6 +27,10 @@ public class HourlyElectricityServiceImpl implements HourlyElectricityService {
   
   public Page<HourlyElectricity> getAllHourlyElectricityByPanelId(Long panelId, Pageable pageable) {
     return hourlyElectricityRepository.findAllByPanelIdOrderByReadingAtDesc(panelId, pageable);
+  }
+
+  public void setHourlyElectricityRepository(HourlyElectricityRepository hourlyElectricityRepository) {
+    this.hourlyElectricityRepository = hourlyElectricityRepository;
   }
   
 }
