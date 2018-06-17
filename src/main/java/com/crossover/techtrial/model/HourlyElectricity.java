@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -61,6 +62,10 @@ public class HourlyElectricity implements Serializable {
 
   public LocalDateTime getReadingAt() {
     return readingAt;
+  }
+
+  public LocalDate getReadingAtDate() {
+    return this.readingAt.toLocalDate();
   }
 
   public void setReadingAt(LocalDateTime readingAt) {

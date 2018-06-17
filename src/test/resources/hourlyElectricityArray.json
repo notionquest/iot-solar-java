@@ -1,0 +1,12 @@
+[
+  {
+    "readingAt": "2018-04-23T18:25:43.511Z",
+    "generatedElectricity": 1,
+    "panel": {
+      "serial": "232323",
+      "longitude": "54.123232",
+      "latitude": "54.123232",
+      "brand": "tesla"
+    }
+  }
+]

@@ -11,14 +11,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.*;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.web.servlet.MockMvc;
-
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.StreamUtils;
+
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 
 /**
@@ -66,19 +71,39 @@ public class PanelControllerTest {
     }
 
     @Test
-    public void saveHourlyElectricity() {
-        HttpEntity<Object> hourlyElectricity = getHttpEntity(getClass().getResource("hourlyElectricity.json"));
+    public void shouldSaveHourlyElectricity() throws IOException {
+        HttpEntity<Object> hourlyElectricity = getHttpEntity(
+                StreamUtils.copyToString(getClass().getResourceAsStream("/hourlyElectricity.json"),
+                        Charset.forName("UTF-8")));
 
         ResponseEntity<HourlyElectricity> response = template.postForEntity(
                 "/api/panels/232323/hourly", hourlyElectricity, HourlyElectricity.class);
 
-        Assert.assertEquals(200, response.getStatusCode().value());
+        assertEquals(200, response.getStatusCode().value());
+        assertNotNull(response.getBody());
+        assertNotNull(response.getBody().getId());
+        assertEquals(new Long(1), response.getBody().getGeneratedElectricity());
+        assertNotNull(response.getBody().getReadingAt());
 
     }
 
     @Test
-    public void hourlyElectricity() {
+    public void hourlyElectricity() throws IOException {
 
+        HttpEntity<Object> hourlyElectricity = getHttpEntity(
+                StreamUtils.copyToString(getClass().getResourceAsStream("/hourlyElectricityArray.json"),
+                        Charset.forName("UTF-8")));
+
+        ParameterizedTypeReference<List<HourlyElectricity>> listOfHourlyElec =
+                new ParameterizedTypeReference<List<HourlyElectricity>>() {};
+
+        ResponseEntity<List<HourlyElectricity>> response = template.exchange("/api/panels/232323/hourly",
+                HttpMethod.GET,
+                null,listOfHourlyElec);
+
+        assertEquals(200, response.getStatusCode().value());
+        assertNotNull(response.getBody());
+        assertEquals(1,response.getBody().size());
 
     }
 
