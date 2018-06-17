@@ -8,9 +8,11 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.atLeastOnce;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PanelServiceImplTest {
@@ -22,7 +24,7 @@ public class PanelServiceImplTest {
 
     @Before
     public void setup() {
-        PanelService panelService = new PanelServiceImpl();
+        panelService = new PanelServiceImpl();
         ((PanelServiceImpl) panelService).setPanelRepository(panelRepository);
     }
 
@@ -34,6 +36,25 @@ public class PanelServiceImplTest {
         when(panelRepository.save(panel)).thenReturn(panel);
         panelService.register(panel);
         verify(panelRepository, atLeastOnce()).save(panel);
+
+    }
+
+    @Test
+    public void shouldFindThePanelBySerialNumber() {
+
+        Panel panel = getPanel1();
+
+        when(panelRepository.findBySerial("123")).thenReturn(panel);
+        Panel panelResult = panelService.findBySerial("123");
+        verify(panelRepository, atLeastOnce()).findBySerial("123");
+
+        assertNotNull(panelResult);
+        assertEquals(panel, panelResult);
+        assertEquals(panel.getBrand(), panelResult.getBrand());
+        assertEquals(panel.getSerial(), panelResult.getSerial());
+        assertEquals(panel.getLatitude(), panelResult.getLatitude());
+        assertEquals(panel.getLongitude(), panelResult.getLongitude());
+        assertEquals(panel.getId(), panelResult.getId());
 
     }
 
