@@ -89,11 +89,7 @@ public class PanelControllerTest {
     }
 
     @Test
-    public void hourlyElectricity() throws IOException {
-
-        HttpEntity<Object> hourlyElectricity = getHttpEntity(
-                StreamUtils.copyToString(getClass().getResourceAsStream("/hourlyElectricityArray.json"),
-                        Charset.forName("UTF-8")));
+    public void shouldGetHourlyElectricityForPanelSerial() throws IOException {
 
         ParameterizedTypeReference<List<HourlyElectricity>> listOfHourlyElec =
                 new ParameterizedTypeReference<List<HourlyElectricity>>() {};
@@ -104,6 +100,7 @@ public class PanelControllerTest {
 
         assertEquals(200, response.getStatusCode().value());
         assertNotNull(response.getBody());
+        assertEquals(0, response.getBody().size());
 
     }
 
