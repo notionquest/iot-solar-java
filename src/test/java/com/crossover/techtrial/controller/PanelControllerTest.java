@@ -104,7 +104,6 @@ public class PanelControllerTest {
 
         assertEquals(200, response.getStatusCode().value());
         assertNotNull(response.getBody());
-        assertEquals(1,response.getBody().size());
 
     }
 
