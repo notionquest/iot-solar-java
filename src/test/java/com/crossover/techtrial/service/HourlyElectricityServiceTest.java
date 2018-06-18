@@ -61,7 +61,7 @@ public class HourlyElectricityServiceTest {
 
         }
 
-        verify(hourlyElectricityRepository, atLeastOnce()).findAllByPanelIdOrderByReadingAtDesc(2L, pageable);
+        verify(hourlyElectricityRepository, atLeastOnce()).findAllByPanelIdOrderByReadingAtDesc(1L, pageable);
     }
 
     @Test
