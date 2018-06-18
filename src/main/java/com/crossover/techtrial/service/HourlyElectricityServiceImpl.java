@@ -2,7 +2,6 @@ package com.crossover.techtrial.service;
 
 import com.crossover.techtrial.model.HourlyElectricity;
 import com.crossover.techtrial.repository.HourlyElectricityRepository;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
