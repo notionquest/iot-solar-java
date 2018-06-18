@@ -70,9 +70,10 @@ public class PanelController {
     public ResponseEntity<?> hourlyElectricity(
             @PathVariable(value = "panel-serial") String panelSerial,
             @PageableDefault(size = 5, value = 0) Pageable pageable) {
+        List<HourlyElectricity> hourlyElectricityList = new ArrayList<>();
         Panel panel = panelService.findBySerial(panelSerial);
         if (panel == null) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok(hourlyElectricityList);
         }
         Page<HourlyElectricity> page = hourlyElectricityService.getAllHourlyElectricityByPanelId(
                 panel.getId(), pageable);

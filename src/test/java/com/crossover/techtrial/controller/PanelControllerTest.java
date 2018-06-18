@@ -89,7 +89,6 @@ public class PanelControllerTest {
     }
 
     @Test
-    @Ignore
     public void hourlyElectricity() throws IOException {
 
         HttpEntity<Object> hourlyElectricity = getHttpEntity(
